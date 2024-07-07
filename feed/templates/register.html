@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="login-page card shadow-lg" style="width: 25rem; border: none; background:linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+        <div class="card-body" style="background-color: rgba(255, 255, 255, 0.1);">
+            <div class="text-center mb-4">
+                <img src="{% static 'images/img-01.png' %}" alt="IMG" class="img-fluid" style="max-width: 150px;">
+            </div>
+            <h3 class="card-title text-center mb-4 text-light">Register</h3>
+            <form class="register-form" method="post">
+                {% csrf_token %}
+                <div class="container mt-4">
+                    <!-- 
+                    -------------Server Side Validation----------------------
+                    -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message|safe }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- 
+                    -----------Client Side Validation--------------------
+                    -->
+                    <div class="alert alert-danger alert-dismissible fade show d-none required-fields" role="alert">
+                        ***All fields are required***
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show d-none passwords-not-match" role="alert">
+                        ***Passwords do not match***
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible fade show d-none passwords-8-digits" role="alert">
+                        ***Passwords must be atleast 8 digits***
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="text-light">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="text-light mt-2">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-light mt-2">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password" class="text-light mt-2">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3 register-form-submit-button">Register</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="{% url 'login' %}" style="color: #c8c8c8; text-decoration: underline;">Already have an account? Login here</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function (){
+        $('.register-form-submit-button').on('click', function(e){
+            e.preventDefault();
+            var username = $('#username').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var cpassword = $('#confirm_password').val();
+            var isValid = true;
+            
+            // Reseting previous error messages from the screen
+            $('.required-fields, .passwords-not-match').removeClass('d-block').addClass('d-none');
+            
+            //Check for Password length
+            if (password.length < 8){
+                $('.passwords-8-digits').removeClass('d-none').addClass('d-block');
+                isValid = false;
+            }
+
+
+            // Check for empty fields
+            if (!username || !email || !password || !cpassword) {
+                $('.required-fields').removeClass('d-none').addClass('d-block');
+                isValid = false;
+            }
+
+            // Check if passwords match
+            if (password !== cpassword) {
+                $('.passwords-not-match').removeClass('d-none').addClass('d-block');
+                isValid = false;
+            }
+
+            // If all validations pass, submit the form
+            if (isValid) {
+                $('.register-form').submit();
+            }
+        });
+    });
+</script>
+{% endblock script %}
+

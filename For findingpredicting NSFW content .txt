@@ -1,0 +1,36 @@
+For finding/predicting NSFW content and Bluring the image:
+
+
+1. We need following packages:
+	a. tensorflow: for predicting if the image is nsfw content or not 
+	b. tensorflow_hub: a repository and library which content different reusable machine learning modules like nsfw content
+	c. numpy: used for numberical computing, here mainly used for array operations
+	d. cv2: library for image processing: here blurring the image
+	e. Python Imaging Library (PIL) [PIL.image]: opening, manipulating, and saving different image file formats
+	f. IO.BytesIO : for handling non-text data like image, audio, video etc. in binary format (0s and 1s) for reading, writing, seeking which in/from in-memory buffer
+	g. django.core.files.base.ContentFile: Coverts binary data into Django Compatible file like object.
+	
+2. Process:
+	a. use PIL for opening and coverting image into RGB Format (stores in matrix format with their intensity value)
+	b. use np for converting image to numpy array for tensorflow processing
+	c. use hub.load (tensorflow_hub) for loading reusable models
+	d. Preprocess the image for model using tensorflow (tf) to first convert the image_array to float32 format, then resize the image to the standard size and easy to handle smaller size for computers power and lastly, add dimensions to the image for batch processing required by trained models.
+
+[Note: Images are typically read as uint8 (unsigned 8-bit integer) format, but neural networks commonly operate on float32 (32-bit floating point) for calculations.]
+	e. predicts if the image is nsfw content or not; if result score greater than 0.5, then it is nsfw content.
+	f. then, blur the image using OpenCV(cv2).
+	g. convert the numpy array format to PIL image
+	h. saving into buffer for temporary storage and easy manipulation like file like objects such as read and write.
+	i. blurred object which is an instance (object) PIL, need to convert to the required image format (here, JPEG format)
+	j. use contentfile Django utility to wrap the binary data from buffer using getValue() into Django-Compatible file like object to save in Image Field
+	
+
+Installed Packages:  namex, libclang, flatbuffers, wrapt, wheel, urllib3, termcolor, tensorboard-data-server, pygments, protobuf, packaging, optree, numpy, mdurl, MarkupSafe, markdown, grpcio, google-pasta, gast, charset-normalizer, certifi, absl-py, werkzeug, requests, opt-einsum, opencv-python, ml-dtypes, markdown-it-py, h5py, astunparse, tensorboard, rich, keras, tensorflow-intel, tensorflow
+
+Successfully installed MarkupSafe-2.1.5 absl-py-2.1.0 astunparse-1.6.3 certifi-2024.6.2 charset-normalizer-3.3.2 flatbuffers-24.3.25 gast-0.6.0 google-pasta-0.2.0 grpcio-1.64.1 h5py-3.11.0 keras-3.4.1 libclang-18.1.1 markdown-3.6 markdown-it-py-3.0.0 mdurl-0.1.2 ml-dtypes-0.3.2 namex-0.0.8 numpy-1.26.4 opencv-python-4.10.0.84 opt-einsum-3.3.0 optree-0.11.0 packaging-24.1 protobuf-4.25.3 pygments-2.18.0 requests-2.32.3 rich-13.7.1 tensorboard-2.16.2 tensorboard-data-server-0.7.2 tensorflow-2.16.2 tensorflow-intel-2.16.2 termcolor-2.4.0 urllib3-2.2.2 werkzeug-3.0.3 wheel-0.43.0 wrapt-1.16.0
+
+Installing collected packages: tf-keras, tensorflow_hub
+Successfully installed tensorflow_hub-0.16.1 tf-keras-2.16.0
+
+Installing collected packages: tifffile, soupsieve, scipy, python-dateutil, PySocks, pyparsing, networkx, lazy-loader, kiwisolver, imageio, fonttools, filelock, cycler, contourpy, colorama, tqdm, scikit-image, matplotlib, beautifulsoup4, gdown, opennsfw2
+Successfully installed PySocks-1.7.1 beautifulsoup4-4.12.3 colorama-0.4.6 contourpy-1.2.1 cycler-0.12.1 filelock-3.15.4 fonttools-4.53.0 gdown-5.2.0 imageio-2.34.2 kiwisolver-1.4.5 lazy-loader-0.4 matplotlib-3.9.0 networkx-3.3 opennsfw2-0.13.7 pyparsing-3.1.2 python-dateutil-2.9.0.post0 scikit-image-0.24.0 scipy-1.14.0 soupsieve-2.5 tifffile-2024.6.18 tqdm-4.66.4

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="create-post-page">
+    <div class="d-flex align-items-center flex-column futuristic-container">
+        <h2 class="futuristic-heading">Create Post</h2>
+        <form action="" method="post" enctype="multipart/form-data" class="futuristic-form">
+            {% csrf_token %}
+            {{ create_post.as_p }}
+            <button type="submit" class="futuristic-button">Create</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
