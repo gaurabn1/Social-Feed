@@ -69,8 +69,12 @@ def login_page(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
+        print("Email: ", email)
+        print("Password: ", password)
+        
 
         user = authenticate(email = email, password = password)
+        print(user)
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -101,7 +105,11 @@ def register_page(request):
     if request.method == "POST":
         username = request.POST.get('username')
         email = request.POST.get('email')
-        pass1 = request.POST.get('pass1')
+        pass1 = request.POST.get('password')
+
+        print("Email: ", email)
+        print("Password: ", pass1)
+
         
         if User.objects.filter(username = username).exists():
             messages.info(request, "Username already exists!")
