@@ -58,7 +58,7 @@ urlpatterns = [
     path('search-user/<str:user>/', views.search_user, name="search_user"),
 
     #Comment
-    path('post/comment/<str:post_id>/', views.comment, name='comment'),
+    # path('post/comment/<str:post_id>/', views.comment, name='comment'),
 
     # Password Reset
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name = 'password_reset.html'), name='password_reset'),

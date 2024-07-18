@@ -353,34 +353,22 @@ def search_user(request, user):
 
 #--------------------Comment---------------------------------#
 
-def comment(request, post_id):
-    author = request.user
-    post = get_object_or_404(Post, id = post_id)
-    if request.method == "POST":
-        text = request.POST.get('text')
+# def comment(request, post_id):
+#     author = request.user
+#     post = get_object_or_404(Post, id = post_id)
+#     if request.method == "POST":
+#         text = request.POST.get('text')
 
-        try:
-            comment = Comment(post = post, author = author, text = text)
-            comment.save()
-        except ValidationError as e:
-            context = {
-                'post' : post,
-                'error_message': str(e)
-            }
-            return JsonResponse(context)
-        return HttpResponse("Worked!!")
+#         try:
+#             comment = Comment(post = post, author = author, text = text)
+#             comment.save()
+#         except ValidationError as e:
+#             context = {
+#                 'post' : post,
+#                 'error_message': str(e)
+#             }
+#             return JsonResponse(context)
+#         return HttpResponse("Worked!!")
 
 
 #--------------------Comment End---------------------------------#
-
-
-
-
-
-
-
-
-
-
-
-
